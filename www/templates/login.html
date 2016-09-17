@@ -1,0 +1,23 @@
+<ion-view view-title="Beenay">
+    <ion-content scroll="false" class="padding has-header">
+        <section class="login-container">
+
+            <div class="col header text-center">
+                <img src="./img/ionic.png" class="logo" />
+            </div>
+            <div class="col text-center">
+                <h3>Beenay</h3>
+            </div>
+            <div class="col text-center">
+                <h4>Your easy debt tracking solution on the go.</h4>
+            </div>
+            <div class="col button-row text-center" ng-click="login.socialSignin('facebook')">
+                <img src="./img/facebook-button.png" style="width: inherit;" />
+            </div>
+            <div class="col text-center">
+                <h4 style="color:red;" ng-bind="login.error"></h4>
+            </div>
+
+        </section>
+    </ion-content>
+</ion-view>
