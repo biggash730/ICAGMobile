@@ -45,3 +45,12 @@
     flex: 4;
     padding-top: 50px;
 }
+
+.profileImage {
+    max-width: 100%;
+    width: 50%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}

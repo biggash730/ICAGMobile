@@ -1,5 +1,7 @@
 <ion-view view-title="Members">
     <ion-content class="padding">
+        <!--<ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getData()">
+        </ion-refresher>-->
         <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
@@ -7,7 +9,7 @@
             </label>
         </div>
         <div class="list card" ng-repeat="object in vm.data">
-            <a class="item item-avatar item-icon-right" href="#">
+            <a class="item item-avatar item-icon-right" href="#/tabs/memberdetails/{{object.id}}">
                 <img src="./img/ph.png">
                 <h2>{{object.name}}</h2>
                 <p>{{object.number}} ({{object.year}})</p>
@@ -17,10 +19,12 @@
         <div class="list">
             <div class="item item-button-right" ng-show="vm.data" style="background-color: #ddd">
                 Showing {{vm.data.length}} of {{vm.total}}
-                <button class="button button-positive" ng-if="vm.data.length < vm.total" ng-click="vm.loadMore()">
+                <button class="button button-positive" ng-if="vm.data.length < vm.total" ng-click="vm.getData()">
                 Load More
             </button>
             </div>
         </div>
+        <!--<ion-infinite-scroll on-infinite="vm.getData()" distance="3%" ng-if="vm.data.length < vm.total">
+        </ion-infinite-scroll>-->
     </ion-content>
 </ion-view>

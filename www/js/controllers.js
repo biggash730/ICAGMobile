@@ -56,6 +56,10 @@ angular.module('SimpleRESTIonic.controllers', [])
 
     vm.signout = signout;
 
+    $rootScope.$on('logout', function() {
+        $state.go('login');
+    });
+
     function signout() {
         console.log(00)
         LoginService.signout()
@@ -94,6 +98,7 @@ angular.module('SimpleRESTIonic.controllers', [])
                     //console.log(result.data)
                     vm.data = result.data;
                     vm.total = result.totalRows;
+                    $rootScope.$broadcast('scroll.refreshComplete');
                 });
         }
 
@@ -110,13 +115,12 @@ angular.module('SimpleRESTIonic.controllers', [])
             vm.data = null;
         }
 
-
-
         vm.objects = [];
         vm.edited = null;
         vm.isEditing = false;
         vm.isCreating = false;
         vm.getAll = getAll;
+        vm.getData = getData;
         vm.search = search;
         vm.isAuthorized = false;
 
@@ -134,5 +138,23 @@ angular.module('SimpleRESTIonic.controllers', [])
         }
 
         getData();
+
+    })
+    .controller('MemberCtrl', function(MembersModel, $state, $rootScope) {
+        var vm = this;
+        vm.id = $state.params.id;
+        //console.log(vm.id)
+
+        function getOne() {
+            MembersModel.getOne(vm.id)
+                .then(function(result) {
+                    //console.log(result.data)
+                    vm.data = result.data;
+                });
+        }
+
+        getOne();
+
+
 
     });

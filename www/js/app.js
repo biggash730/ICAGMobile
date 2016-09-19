@@ -42,9 +42,9 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
         })
         .state('tab.member', {
             cache: true,
-            url: '/members/details/:id',
+            url: '/memberdetails/:id',
             views: {
-                'tab-member': {
+                'tab-members': {
                     templateUrl: 'templates/member.html',
                     controller: 'MemberCtrl as vm'
                 }

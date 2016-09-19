@@ -1,18 +1,26 @@
 <ion-view view-title="Details">
-    <ion-content style="text-align: center;">
+    <ion-content>
+        <div class="list" style="height: 180px;" style="text-align: center;">
+            <div class="col header text-center">
+                <img src="./img/ph.png" class="profileImage" />
+            </div>
+        </div>
         <div class="list">
-            <div class="item item-text-wrap">
-                <img src="./img/ionic.png" style="width: 30%;" />
-                <p>
-                    MindAid is a mobile application that seeks to bridge the gap between mental health service providers and their clients by providing a platform that brings the parties involved together; seamlessly integrating the services and functions. The purpose of
-                    the app is to make mental health services easily accessible and also help people deal with stigma better. The app will involve three portals; the first being the MSE and education portal; the second being the consultation booking and
-                    the final portal being the pharmacy portal.
-                </p>
-                <p>
-                    CODEF AFRICA is a registered Non-Governmental Organization in Ghana dedicated to developing communities by providing access to quality healthcare services and education on Maternal and Mental Healthcare. We act as the liaison between communities and healthcare
-                    professionals, bringing the much needed knowledge and expertise as well as the services of these areas closer to the communities around the world.
+            <div class="item item-divider text-center">
+                <p style="font-size: large;">
+                    {{vm.data.name}}
                 </p>
             </div>
+            <a class="item item-icon-left item-icon-right">
+                <i class="icon ion-information-circled">
+                </i> {{vm.data.number}}
+                <span class="item-note">Number</span>
+            </a>
+            <a class="item item-icon-left item-icon-right">
+                <i class="icon ion-ios-calendar-outline">
+                </i> {{vm.data.year}}
+                <span class="item-note">Year</span>
+            </a>
         </div>
     </ion-content>
 </ion-view>
