@@ -11,10 +11,11 @@ angular.module('SimpleRESTIonic.services', [])
     };
 })
 
-.service('CustomersModel', function($http, Backand) {
+.service('MembersModel', function($http, Backand, AuthService) {
     var service = this,
         baseUrl = '/1/objects/',
-        objectName = 'customers/';
+        objectName = 'members/';
+    var token = AuthService.getUserToken();
 
     function getUrl() {
         return Backand.getApiUrl() + baseUrl + objectName;
@@ -28,20 +29,48 @@ angular.module('SimpleRESTIonic.services', [])
         return $http.get(getUrl());
     };
 
+
+    service.some = function(pageSize) {
+        var sort = [{ "fieldName": "name", "order": "asc" }]
+        return $http({
+            method: 'GET',
+            url: getUrl(),
+            params: {
+                pageSize: pageSize,
+                sort: sort
+            },
+            headers: token
+        }).then(function(response) {
+            return response.data;
+        });
+    };
+
+    service.search = function(q) {
+        var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
+        return $http({
+            method: 'GET',
+            url: getUrl(),
+            params: {
+                filter: filter
+            },
+            headers: token
+        }).then(function(response) {
+            return response.data;
+        });
+    };
+
     service.fetch = function(id) {
         return $http.get(getUrlForId(id));
     };
 
-    service.create = function(object) {
-        return $http.post(getUrl(), object);
-    };
-
-    service.update = function(id, object) {
-        return $http.put(getUrlForId(id), object);
-    };
-
-    service.delete = function(id) {
-        return $http.delete(getUrlForId(id));
+    service.getOne = function(id) {
+        return $http({
+            method: 'GET',
+            url: getUrlForId(id),
+            params: {
+                deep: true
+            }
+        });
     };
 })
 
@@ -141,6 +170,10 @@ angular.module('SimpleRESTIonic.services', [])
                     return signUpResponse;
                 }
             });
+    };
+
+    self.getUserToken = function() {
+        return Backand.getToken()
     };
 
     self.changePassword = function(oldPassword, newPassword) {

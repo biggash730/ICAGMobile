@@ -1,0 +1,26 @@
+<ion-view view-title="Members">
+    <ion-content class="padding">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search members by name" ng-model="vm.query" ng-change="vm.search()" ng-model-options="{debounce:1000}">
+            </label>
+        </div>
+        <div class="list card" ng-repeat="object in vm.data">
+            <a class="item item-avatar item-icon-right" href="#">
+                <img src="./img/ph.png">
+                <h2>{{object.name}}</h2>
+                <p>{{object.number}} ({{object.year}})</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+        </div>
+        <div class="list">
+            <div class="item item-button-right" ng-show="vm.data" style="background-color: #ddd">
+                Showing {{vm.data.length}} of {{vm.total}}
+                <button class="button button-positive" ng-if="vm.data.length < vm.total" ng-click="vm.loadMore()">
+                Load More
+            </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

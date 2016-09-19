@@ -54,66 +54,55 @@ angular.module('SimpleRESTIonic.controllers', [])
 .controller('SettingsCtrl', function(Backand, $state, $rootScope, LoginService) {
     var vm = this;
 
-    vm.signup = signUp;
+    vm.signout = signout;
 
     function signout() {
+        console.log(00)
         LoginService.signout()
             .then(function() {
-                //$state.go('tab.login');
+                $state.go('login');
                 $rootScope.$broadcast('logout');
                 $state.go($state.current, {}, { reload: true });
             })
-
     }
-
-    function signUp() {
-        vm.errorMessage = '';
-
-        LoginService.signup(vm.firstName, vm.lastName, vm.email, vm.password, vm.again)
-            .then(function(response) {
-                // success
-                onLogin();
-            }, function(reason) {
-                if (reason.data.error_description !== undefined) {
-                    vm.errorMessage = reason.data.error_description;
-                } else {
-                    vm.errorMessage = reason.data;
-                }
-            });
-    }
-
-
-    function onLogin() {
-        $rootScope.$broadcast('authorized');
-        $state.go('tab.dashboard');
-    }
-
-
-    vm.email = '';
-    vm.password = '';
-    vm.again = '';
-    vm.firstName = '';
-    vm.lastName = '';
-    vm.errorMessage = '';
 })
 
-.controller('DashboardCtrl', function(CustomersModel, $rootScope) {
+.controller('AnnouncementsCtrl', function(AnnouncementsModel, $rootScope) {
         var vm = this;
 
 
 
     })
-    .controller('CustomersCtrl', function(CustomersModel, $rootScope) {
+    .controller('MembersCtrl', function(MembersModel, $rootScope) {
         var vm = this;
-
-        function goToBackand() {
-            window.location = 'http://docs.backand.com';
-        }
+        vm.query = null
+        vm.pageSize = $rootScope.pageSize;
+        vm.page = 0;
+        vm.total = 0;
 
         function getAll() {
-            CustomersModel.all()
+            MembersModel.all()
                 .then(function(result) {
                     vm.data = result.data.data;
+                });
+        }
+
+        function getData() {
+            vm.page = vm.page + 1;
+            MembersModel.some(vm.page * vm.pageSize)
+                .then(function(result) {
+                    //console.log(result.data)
+                    vm.data = result.data;
+                    vm.total = result.totalRows;
+                });
+        }
+
+        function search() {
+            console.log(vm.query)
+            MembersModel.search(vm.query)
+                .then(function(result) {
+                    vm.data = result.data;
+                    vm.total = result.totalRows;
                 });
         }
 
@@ -121,66 +110,14 @@ angular.module('SimpleRESTIonic.controllers', [])
             vm.data = null;
         }
 
-        function create(object) {
-            CustomersModel.create(object)
-                .then(function(result) {
-                    cancelCreate();
-                    getAll();
-                });
-        }
 
-        function update(object) {
-            ItemsModel.update(object.id, object)
-                .then(function(result) {
-                    cancelEditing();
-                    getAll();
-                });
-        }
-
-        function deleteObject(id) {
-            ItemsModel.delete(id)
-                .then(function(result) {
-                    cancelEditing();
-                    getAll();
-                });
-        }
-
-        function initCreateForm() {
-            vm.newObject = { name: '', description: '' };
-        }
-
-        function setEdited(object) {
-            vm.edited = angular.copy(object);
-            vm.isEditing = true;
-        }
-
-        function isCurrent(id) {
-            return vm.edited !== null && vm.edited.id === id;
-        }
-
-        function cancelEditing() {
-            vm.edited = null;
-            vm.isEditing = false;
-        }
-
-        function cancelCreate() {
-            initCreateForm();
-            vm.isCreating = false;
-        }
 
         vm.objects = [];
         vm.edited = null;
         vm.isEditing = false;
         vm.isCreating = false;
         vm.getAll = getAll;
-        vm.create = create;
-        vm.update = update;
-        vm.delete = deleteObject;
-        vm.setEdited = setEdited;
-        vm.isCurrent = isCurrent;
-        vm.cancelEditing = cancelEditing;
-        vm.cancelCreate = cancelCreate;
-        vm.goToBackand = goToBackand;
+        vm.search = search;
         vm.isAuthorized = false;
 
         $rootScope.$on('authorized', function() {
@@ -196,7 +133,6 @@ angular.module('SimpleRESTIonic.controllers', [])
             $rootScope.$broadcast('logout');
         }
 
-        initCreateForm();
-        getAll();
+        getData();
 
     });

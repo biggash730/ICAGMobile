@@ -9,14 +9,15 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
 
  })
  */
-.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom'); // other values: top
     // change here to your appName
-    BackandProvider.setAppName('debttracker');
+    BackandProvider.setAppName('icagh');
 
-    BackandProvider.setSignUpToken('173d6800-0e4e-468d-9eff-c06bd2276abf');
+    BackandProvider.setSignUpToken('4cb064bd-762f-4074-a9cc-9ca3277832b7');
 
     // token is for anonymous login. see http://docs.backand.com/en/latest/apidocs/security/index.html#anonymous-access
-    BackandProvider.setAnonymousToken('506ac32f-6531-47d3-a06c-934f8da8610f');
+    BackandProvider.setAnonymousToken('4f02051d-2df2-4af6-90b5-da623e59bfee');
 
     $stateProvider
     // setup an abstract state for the tabs directive
@@ -30,12 +31,22 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
             abstract: true,
             templateUrl: 'templates/tabs.html'
         })
-        .state('tab.dashboard', {
-            url: '/dashboard',
+        .state('tab.members', {
+            url: '/members',
             views: {
-                'tab-dashboard': {
-                    templateUrl: 'templates/tab-dashboard.html',
-                    controller: 'DashboardCtrl as vm'
+                'tab-members': {
+                    templateUrl: 'templates/tab-members.html',
+                    controller: 'MembersCtrl as vm'
+                }
+            }
+        })
+        .state('tab.member', {
+            cache: true,
+            url: '/members/details/:id',
+            views: {
+                'tab-member': {
+                    templateUrl: 'templates/member.html',
+                    controller: 'MemberCtrl as vm'
                 }
             }
         })
@@ -49,17 +60,36 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
                 }
             }
         })
-        .state('tab.customers', {
-            url: '/customers',
+        .state('tab.terms', {
+            cache: true,
+            url: '/settings/terms',
             views: {
-                'tab-customers': {
-                    templateUrl: 'templates/tab-customers.html',
-                    controller: 'CustomersCtrl as vm'
+                'tab-settings': {
+                    templateUrl: 'templates/terms.html',
+                    controller: 'SettingsCtrl as vm'
+                }
+            }
+        }).state('tab.about', {
+            cache: true,
+            url: '/settings/about',
+            views: {
+                'tab-settings': {
+                    templateUrl: 'templates/about.html',
+                    controller: 'SettingsCtrl as vm'
+                }
+            }
+        })
+        .state('tab.announcements', {
+            url: '/announcements',
+            views: {
+                'tab-announcements': {
+                    templateUrl: 'templates/tab-announcements.html',
+                    controller: 'AnnouncementsCtrl as vm'
                 }
             }
         });
 
-    $urlRouterProvider.otherwise('/tabs/dashboard');
+    $urlRouterProvider.otherwise('/tabs/members');
     $httpProvider.interceptors.push('APIInterceptor');
 })
 
@@ -85,6 +115,8 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
         Backand.setRunSignupAfterErrorInSigninSocial(true);
     });
 
+    $rootScope.pageSize = 20;
+
     function unauthorized() {
         console.log("user is unauthorized, sending to login");
         $state.go('login');
@@ -99,7 +131,7 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
     });
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-        console.log(toState)
+        //console.log(toState)
         if (toState.name == 'login') {
             signout();
         } else if (toState.name != 'login' && Backand.getToken() === undefined) {

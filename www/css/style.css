@@ -1,21 +1,47 @@
 /* Empty. Add your own CSS if you like */
+
 .icon.new-item {
-	position: absolute;
-	right: 20px;
-	font-size: 20px;
-	bottom: 13px;
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    bottom: 13px;
 }
+
 .cancel-create {
-	position: absolute;
-	right: 20px;
-	font-size: 14px;
-	bottom: 13px;
-	color:#ef4e3a;
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    bottom: 13px;
+    color: #ef4e3a;
 }
-[ng-click], [data-ng-click], [x-ng-click] {
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
     cursor: pointer;
 }
+
+
 /* Ionic Overwrite! */
-.item-icon-left .icon, .item-icon-right .icon {
-	font-size: 22px;
+
+.item-icon-left .icon,
+.item-icon-right .icon {
+    font-size: 22px;
+}
+
+.login-container {
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+
+.login-container>.button-row img {
+    max-width: 80%;
+}
+
+.login-container>.header {
+    -webkit-flex: 4;
+    flex: 4;
+    padding-top: 50px;
 }
