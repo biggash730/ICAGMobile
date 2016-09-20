@@ -8,7 +8,7 @@
         <div class="list">
             <div class="item item-divider text-center">
                 <p style="font-size: large;">
-                    Username Here
+                    {{vm.user.name}}
                 </p>
             </div>
             <a class="item item-icon-left item-icon-right" href="#/tabs/settings/about">
@@ -19,8 +19,8 @@
             </a>
             <div class="item item-divider">
             </div>
-            <a class="item item-icon-left" href="" ng-click="vm.signout()">
-                <i class="icon ion-cube">
+            <a class="item item-icon-left" href="" ng-click="vm.signout()" style="color: brown;">
+                <i class="icon ion-log-out">
                 </i> Logout
 
             </a>

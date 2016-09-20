@@ -1,0 +1,28 @@
+<ion-view view-title="Announcement">
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider text-center  item-text-wrap" style="font-size: larger;">
+                <h2>{{vm.data.title}}</h2>
+            </div>
+            <div class="item item-divider text-center">
+                <p style="font-size: small; color: sienna;">
+                    {{vm.data.date | date:'fullDate'}}
+                </p>
+            </div>
+            <div class="item item-image" ng-if="vm.data.thumbnail">
+                <img ng-src="{{vm.data.thumbnail}}">
+            </div>
+            <div class="item item-text-wrap">
+                <p>
+                    {{vm.data.content}}
+                </p>
+            </div>
+            <div class="item item-image" ng-if="vm.data.img1">
+                <img ng-src="{{vm.data.img1}}">
+            </div>
+            <div class="item item-image">
+                <img ng-src="{{vm.data.img2}}" ng-if="vm.data.img1">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

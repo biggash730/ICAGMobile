@@ -87,6 +87,16 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
                     controller: 'AnnouncementsCtrl as vm'
                 }
             }
+        })
+        .state('tab.announcement', {
+            cache: true,
+            url: '/announcement/:id',
+            views: {
+                'tab-announcements': {
+                    templateUrl: 'templates/info.html',
+                    controller: 'AnnouncementCtrl as vm'
+                }
+            }
         });
 
     $urlRouterProvider.otherwise('/tabs/members');
@@ -134,7 +144,7 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
         //console.log(toState)
         if (toState.name == 'login') {
             signout();
-        } else if (toState.name != 'login' && Backand.getToken() === undefined) {
+        } else if (toState.name != 'login' && Backand.getToken() === null) {
             unauthorized();
         }
     });
