@@ -1,7 +1,7 @@
 <ion-view view-title="Announcements">
     <ion-content class="padding">
         <div class="list">
-            <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getData()">
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="vm.getNewData()">
             </ion-refresher>
             <a class="item item-thumbnail-left  item-text-wrap" href="#/tabs/announcement/{{obj.id}}" ng-repeat="obj in vm.data">
                 <img ng-src="{{obj.thumbnail}}">

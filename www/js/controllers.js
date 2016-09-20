@@ -1,7 +1,8 @@
 angular.module('SimpleRESTIonic.controllers', [])
 
-.controller('LoginCtrl', function(Backand, $state, $rootScope, LoginService) {
+.controller('LoginCtrl', function(Backand, $state, $rootScope, LoginService, $ionicLoading) {
     var login = this;
+    $ionicLoading.hide();
 
     function onLogin(username) {
         $rootScope.$broadcast('authorized');
@@ -89,6 +90,11 @@ angular.module('SimpleRESTIonic.controllers', [])
                 });
         }
 
+        function getNewData() {
+            vm.page = 0;
+            getData();
+        }
+
         function search() {
             $ionicLoading.show({
                 template: '<ion-spinner icon="bubbles"></ion-spinner>'
@@ -108,6 +114,7 @@ angular.module('SimpleRESTIonic.controllers', [])
 
         vm.objects = [];
         vm.getData = getData;
+        vm.getNewData = getNewData;
         vm.search = search;
         vm.isAuthorized = false;
 
