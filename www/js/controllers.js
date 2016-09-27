@@ -53,18 +53,36 @@ angular.module('SimpleRESTIonic.controllers', [])
 })
 
 .controller('SettingsCtrl', function(Backand, $state, $rootScope, LoginService, AuthService, $ionicLoading) {
-    var vm = this;
-    vm.user = AuthService.currentUser;
-    console.log(vm.user.name)
+        var vm = this;
+        vm.user = AuthService.currentUser;
+        //console.log(vm.user.name)
 
-    function signout() {
-        LoginService.signout()
-            .then(function() {
-                $state.go('login');
-            })
-    }
-    vm.signout = signout;
-})
+        function signout() {
+            LoginService.signout()
+                .then(function() {
+                    $state.go('login');
+                })
+        }
+
+        function openProfile() {
+            $state.go('tab.profile')
+        }
+        vm.signout = signout;
+        vm.openProfile = openProfile;
+    })
+    .controller('ProfileCtrl', function(Backand, $state, $rootScope, LoginService, AuthService, $ionicLoading) {
+        var vm = this;
+        vm.user = AuthService.currentUser;
+        console.log(vm.user.name)
+
+        function signout() {
+            LoginService.signout()
+                .then(function() {
+                    $state.go('login');
+                })
+        }
+        vm.signout = signout;
+    })
 
 .controller('AnnouncementsCtrl', function(AnnouncementsModel, $rootScope, $ionicLoading) {
         var vm = this;

@@ -60,22 +60,33 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
                 }
             }
         })
-        .state('tab.terms', {
-            cache: true,
-            url: '/settings/terms',
-            views: {
-                'tab-settings': {
-                    templateUrl: 'templates/terms.html',
-                    controller: 'SettingsCtrl as vm'
-                }
-            }
-        }).state('tab.about', {
+        /* .state('tab.terms', {
+             cache: true,
+             url: '/settings/terms',
+             views: {
+                 'tab-settings': {
+                     templateUrl: 'templates/terms.html',
+                     controller: 'SettingsCtrl as vm'
+                 }
+             }
+         })*/
+        .state('tab.about', {
             cache: true,
             url: '/settings/about',
             views: {
                 'tab-settings': {
                     templateUrl: 'templates/about.html',
                     controller: 'SettingsCtrl as vm'
+                }
+            }
+        })
+        .state('tab.profile', {
+            cache: true,
+            url: '/settings/profile',
+            views: {
+                'tab-settings': {
+                    templateUrl: 'templates/profile.html',
+                    controller: 'ProfileCtrl as vm'
                 }
             }
         })
