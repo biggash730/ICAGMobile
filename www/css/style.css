@@ -48,9 +48,8 @@
 
 .profileImage {
     max-width: 100%;
-    width: 50%;
-    height: auto;
-    margin-top: 20px;
+    height: inherit;
+    margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 50%;
 }
