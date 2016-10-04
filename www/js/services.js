@@ -12,130 +12,191 @@ angular.module('SimpleRESTIonic.services', [])
 })
 
 .service('MembersModel', function($http, Backand, AuthService) {
-    var service = this,
-        baseUrl = '/1/objects/',
-        objectName = 'members/';
-    var token = AuthService.getUserToken();
+        var service = this,
+            baseUrl = '/1/objects/',
+            objectName = 'members/';
+        var token = AuthService.getUserToken();
 
-    function getUrl() {
-        return Backand.getApiUrl() + baseUrl + objectName;
-    }
+        function getUrl() {
+            return Backand.getApiUrl() + baseUrl + objectName;
+        }
 
-    function getUrlForId(id) {
-        return getUrl() + id;
-    }
+        function getUrlForId(id) {
+            return getUrl() + id;
+        }
 
-    service.all = function() {
-        return $http.get(getUrl());
-    };
-
-
-    service.some = function(pageSize) {
-        var sort = [{ "fieldName": "name", "order": "asc" }]
-        return $http({
-            method: 'GET',
-            url: getUrl(),
-            params: {
-                pageSize: pageSize,
-                sort: sort
-            },
-            headers: token
-        }).then(function(response) {
-            return response.data;
-        });
-    };
-
-    service.search = function(q) {
-        var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
-        return $http({
-            method: 'GET',
-            url: getUrl(),
-            params: {
-                filter: filter
-            },
-            headers: token
-        }).then(function(response) {
-            return response.data;
-        });
-    };
-
-    service.fetch = function(id) {
-        return $http.get(getUrlForId(id));
-    };
-
-    service.getOne = function(id) {
-        return $http({
-            method: 'GET',
-            url: getUrlForId(id),
-            params: {
-                deep: true
-            }
-        });
-    };
-})
-
-.service('AnnouncementsModel', function($http, Backand, AuthService) {
-    var service = this,
-        baseUrl = '/1/objects/',
-        objectName = 'announcements/';
-    var token = AuthService.getUserToken();
-
-    function getUrl() {
-        return Backand.getApiUrl() + baseUrl + objectName;
-    }
-
-    function getUrlForId(id) {
-        return getUrl() + id;
-    }
-
-    service.all = function() {
-        return $http.get(getUrl());
-    };
+        service.all = function() {
+            return $http.get(getUrl());
+        };
 
 
-    service.some = function(pageSize) {
-        var sort = [{ "fieldName": "date", "order": "desc" }]
-        return $http({
-            method: 'GET',
-            url: getUrl(),
-            params: {
-                pageSize: pageSize,
-                sort: sort
-            },
-            headers: token
-        }).then(function(response) {
-            return response.data;
-        });
-    };
+        service.some = function(pageSize) {
+            var sort = [{ "fieldName": "name", "order": "asc" }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    pageSize: pageSize,
+                    sort: sort
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
 
-    service.search = function(q) {
-        var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
-        return $http({
-            method: 'GET',
-            url: getUrl(),
-            params: {
-                filter: filter
-            },
-            headers: token
-        }).then(function(response) {
-            return response.data;
-        });
-    };
+        service.search = function(q) {
+            var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    filter: filter
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
 
-    service.fetch = function(id) {
-        return $http.get(getUrlForId(id));
-    };
+        service.fetch = function(id) {
+            return $http.get(getUrlForId(id));
+        };
 
-    service.getOne = function(id) {
-        return $http({
-            method: 'GET',
-            url: getUrlForId(id),
-            params: {
-                deep: true
-            }
-        });
-    };
-})
+        service.getOne = function(id) {
+            return $http({
+                method: 'GET',
+                url: getUrlForId(id),
+                params: {
+                    deep: true
+                }
+            });
+        };
+    })
+    .service('FrimsModel', function($http, Backand, AuthService) {
+        var service = this,
+            baseUrl = '/1/objects/',
+            objectName = 'firms/';
+        var token = AuthService.getUserToken();
+
+        function getUrl() {
+            return Backand.getApiUrl() + baseUrl + objectName;
+        }
+
+        function getUrlForId(id) {
+            return getUrl() + id;
+        }
+
+        service.all = function() {
+            return $http.get(getUrl());
+        };
+
+
+        service.some = function(pageSize) {
+            var sort = [{ "fieldName": "name", "order": "asc" }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    pageSize: pageSize,
+                    sort: sort
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
+
+        service.search = function(q) {
+            var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    filter: filter
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
+
+        service.fetch = function(id) {
+            return $http.get(getUrlForId(id));
+        };
+
+        service.getOne = function(id) {
+            return $http({
+                method: 'GET',
+                url: getUrlForId(id),
+                params: {
+                    deep: true
+                }
+            });
+        };
+    })
+    .service('AnnouncementsModel', function($http, Backand, AuthService) {
+        var service = this,
+            baseUrl = '/1/objects/',
+            objectName = 'announcements/';
+        var token = AuthService.getUserToken();
+
+        function getUrl() {
+            return Backand.getApiUrl() + baseUrl + objectName;
+        }
+
+        function getUrlForId(id) {
+            return getUrl() + id;
+        }
+
+        service.all = function() {
+            return $http.get(getUrl());
+        };
+
+
+        service.some = function(pageSize) {
+            var sort = [{ "fieldName": "date", "order": "desc" }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    pageSize: pageSize,
+                    sort: sort
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
+
+        service.search = function(q) {
+            var filter = [{ "fieldName": "name", "operator": "contains", "value": q }]
+            return $http({
+                method: 'GET',
+                url: getUrl(),
+                params: {
+                    filter: filter
+                },
+                headers: token
+            }).then(function(response) {
+                return response.data;
+            });
+        };
+
+        service.fetch = function(id) {
+            return $http.get(getUrlForId(id));
+        };
+
+        service.getOne = function(id) {
+            return $http({
+                method: 'GET',
+                url: getUrlForId(id),
+                params: {
+                    deep: true
+                }
+            });
+        };
+    })
 
 .service('LoginService', function(Backand) {
     var service = this;

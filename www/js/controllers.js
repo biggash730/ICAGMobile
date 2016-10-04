@@ -64,11 +64,11 @@ angular.module('SimpleRESTIonic.controllers', [])
                 })
         }
 
-        function openProfile() {
+        /*function openProfilex() {
             $state.go('tab.profile')
-        }
+        }*/
         vm.signout = signout;
-        vm.openProfile = openProfile;
+        /*vm.openProfile = openProfile;*/
     })
     .controller('ProfileCtrl', function(Backand, $state, $rootScope, LoginService, AuthService, $ionicLoading) {
         var vm = this;
@@ -104,7 +104,8 @@ angular.module('SimpleRESTIonic.controllers', [])
                     vm.total = result.totalRows;
                     $rootScope.$broadcast('scroll.refreshComplete');
                 }).catch(function(e) {
-                    comsole.log('error')
+                    $ionicLoading.hide();
+                    console.log('error')
                 });
         }
 
@@ -150,6 +151,28 @@ angular.module('SimpleRESTIonic.controllers', [])
         }
 
         getData();
+    })
+    .controller('AnnouncementCtrl', function(AnnouncementsModel, $state, $rootScope, $ionicLoading) {
+        var vm = this;
+        vm.id = $state.params.id;
+        //console.log(vm.id)
+
+        function getOne() {
+            $ionicLoading.show({
+                template: '<ion-spinner icon="bubbles"></ion-spinner>'
+            });
+            AnnouncementsModel.getOne(vm.id)
+                .then(function(result) {
+                    $ionicLoading.hide();
+                    //console.log(result.data)
+                    vm.data = result.data;
+                });
+        }
+
+        getOne();
+
+
+
     })
     .controller('MembersCtrl', function(Backand, MembersModel, $rootScope, $ionicLoading) {
         var vm = this;
@@ -211,7 +234,6 @@ angular.module('SimpleRESTIonic.controllers', [])
         }
 
         getData();
-
     })
     .controller('MemberCtrl', function(MembersModel, $state, $rootScope, $ionicLoading) {
         var vm = this;
@@ -235,7 +257,67 @@ angular.module('SimpleRESTIonic.controllers', [])
 
 
     })
-    .controller('AnnouncementCtrl', function(AnnouncementsModel, $state, $rootScope, $ionicLoading) {
+    .controller('FirmsCtrl', function(Backand, FirmsModel, $rootScope, $ionicLoading) {
+        var vm = this;
+        vm.query = null
+        vm.pageSize = $rootScope.pageSize;
+        vm.page = 0;
+        vm.total = 0;
+
+        function getData() {
+            $ionicLoading.show({
+                template: '<ion-spinner icon="bubbles"></ion-spinner>'
+            });
+            vm.page = vm.page + 1;
+            FirmsModel.some(vm.page * vm.pageSize)
+                .then(function(result) {
+                    $ionicLoading.hide();
+                    vm.data = result.data;
+                    vm.total = result.totalRows;
+                    $rootScope.$broadcast('scroll.refreshComplete');
+                }).catch(function(e) {
+                    comsole.log('error')
+                });
+        }
+
+        function search() {
+            $ionicLoading.show({
+                template: '<ion-spinner icon="bubbles"></ion-spinner>'
+            });
+            //console.log(vm.query)
+            FirmsModel.search(vm.query)
+                .then(function(result) {
+                    $ionicLoading.hide();
+                    vm.data = result.data;
+                    vm.total = result.totalRows;
+                });
+        }
+
+        function clearData() {
+            vm.data = null;
+        }
+
+        vm.objects = [];
+        vm.getData = getData;
+        vm.search = search;
+        vm.isAuthorized = false;
+
+        $rootScope.$on('authorized', function() {
+            vm.isAuthorized = true;
+            getData();
+        });
+
+        $rootScope.$on('logout', function() {
+            clearData();
+        });
+
+        if (!vm.isAuthorized) {
+            $rootScope.$broadcast('logout');
+        }
+
+        getData();
+    })
+    .controller('FirmCtrl', function(FirmsModel, $state, $rootScope, $ionicLoading) {
         var vm = this;
         vm.id = $state.params.id;
         //console.log(vm.id)
@@ -244,16 +326,11 @@ angular.module('SimpleRESTIonic.controllers', [])
             $ionicLoading.show({
                 template: '<ion-spinner icon="bubbles"></ion-spinner>'
             });
-            AnnouncementsModel.getOne(vm.id)
+            FirmsModel.getOne(vm.id)
                 .then(function(result) {
                     $ionicLoading.hide();
-                    //console.log(result.data)
                     vm.data = result.data;
                 });
         }
-
         getOne();
-
-
-
     });
