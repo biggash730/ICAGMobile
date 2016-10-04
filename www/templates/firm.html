@@ -1,0 +1,26 @@
+<ion-view view-title="Details">
+    <ion-content>
+        <div class="list" style="height: 200px; text-align: center;">
+            <div class="col header text-center">
+                <img src="./img/ph.png" class="profileImage" />
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-divider text-center">
+                <p style="font-size: large;">
+                    {{vm.data.name}}
+                </p>
+            </div>
+            <a class="item item-icon-left item-icon-right">
+                <i class="icon ion-information-circled">
+                </i> {{vm.data.number}}
+                <span class="item-note">Number</span>
+            </a>
+            <a class="item item-icon-left item-icon-right">
+                <i class="icon ion-ios-calendar-outline">
+                </i> {{vm.data.year}}
+                <span class="item-note">Year</span>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
