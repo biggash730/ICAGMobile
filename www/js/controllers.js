@@ -194,6 +194,7 @@ angular.module('SimpleRESTIonic.controllers', [])
                     vm.total = result.totalRows;
                     $rootScope.$broadcast('scroll.refreshComplete');
                 }).catch(function(e) {
+                    $ionicLoading.hide();
                     comsole.log('error')
                 });
         }
@@ -276,7 +277,8 @@ angular.module('SimpleRESTIonic.controllers', [])
                     vm.total = result.totalRows;
                     $rootScope.$broadcast('scroll.refreshComplete');
                 }).catch(function(e) {
-                    comsole.log('error')
+                    $ionicLoading.hide();
+                    console.log('error')
                 });
         }
 

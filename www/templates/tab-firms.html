@@ -6,13 +6,17 @@
                 <input type="text" placeholder="Search firm by name" ng-model="vm.query" ng-change="vm.search()" ng-model-options="{debounce:1000}">
             </label>
         </div>
-        <div class="list card" ng-repeat="object in vm.data">
-            <a class="item item-avatar item-icon-right" href="#/tabs/firmdetails/{{object.id}}">
-                <img src="./img/ph.png">
-                <h2>{{object.name}}</h2>
-                <p>{{object.number}} ({{object.year}})</p>
-                <i class="icon ion-ios-arrow-right"></i>
-            </a>
+        <div class="list card" ng-hide="vm.data.length < 1">
+            <ion-item auto-list-divider auto-list-divider-value="{{object.name}}" ng-repeat="object in vm.data" class="item-icon-right" href="#/tabs/firmdetails/{{object.id}}">
+                <div style="float:left;padding-right: 10px;">
+                    <ionic-letter-avatar data="{{object.category}}" charcount="2"></ionic-letter-avatar>
+                </div>
+                <div>
+                    <h2>{{object.name}} ({{object.category}})</h2>
+                    <p>{{object.number}} ({{object.year}})</p>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+            </ion-item>
         </div>
         <div class="list">
             <div class="item item-icon-right" style="padding: 0px; border: 0px;">

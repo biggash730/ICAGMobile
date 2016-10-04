@@ -1,10 +1,5 @@
 <ion-view view-title="Details">
     <ion-content>
-        <div class="list" style="height: 200px; text-align: center;">
-            <div class="col header text-center">
-                <img src="./img/ph.png" class="profileImage" />
-            </div>
-        </div>
         <div class="list">
             <div class="item item-divider text-center">
                 <p style="font-size: large;">
@@ -12,14 +7,31 @@
                 </p>
             </div>
             <a class="item item-icon-left item-icon-right">
+                <i class="icon ion-ios-medical">
+                </i> {{vm.data.category}}
+                <span class="item-note">Category</span>
+            </a>
+            <a class="item item-icon-left item-icon-right">
                 <i class="icon ion-information-circled">
                 </i> {{vm.data.number}}
-                <span class="item-note">Number</span>
+                <span class="item-note">License Number</span>
             </a>
             <a class="item item-icon-left item-icon-right">
                 <i class="icon ion-ios-calendar-outline">
                 </i> {{vm.data.year}}
                 <span class="item-note">Year</span>
+            </a>
+            <a class="item item-icon-left item-text-wrap">
+                <i class="icon ion-ios-location">
+                </i> {{vm.data.address}}
+            </a>
+            <a class="item item-icon-left item-text-wrap">
+                <i class="icon ion-ios-person">
+                </i> {{vm.data.contact}}
+            </a>
+            <a class="item item-icon-left item-text-wrap">
+                <i class="icon ion-ios-telephone">
+                </i> {{vm.data.phone}}
             </a>
         </div>
     </ion-content>

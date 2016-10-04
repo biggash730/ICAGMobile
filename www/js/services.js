@@ -14,7 +14,7 @@ angular.module('SimpleRESTIonic.services', [])
 .service('MembersModel', function($http, Backand, AuthService) {
         var service = this,
             baseUrl = '/1/objects/',
-            objectName = 'members/';
+            objectName = 'icagmembers/';
         var token = AuthService.getUserToken();
 
         function getUrl() {
@@ -73,10 +73,10 @@ angular.module('SimpleRESTIonic.services', [])
             });
         };
     })
-    .service('FrimsModel', function($http, Backand, AuthService) {
+    .service('FirmsModel', function($http, Backand, AuthService) {
         var service = this,
             baseUrl = '/1/objects/',
-            objectName = 'firms/';
+            objectName = 'icagfirms/';
         var token = AuthService.getUserToken();
 
         function getUrl() {
@@ -138,7 +138,7 @@ angular.module('SimpleRESTIonic.services', [])
     .service('AnnouncementsModel', function($http, Backand, AuthService) {
         var service = this,
             baseUrl = '/1/objects/',
-            objectName = 'announcements/';
+            objectName = 'icagannouncements/';
         var token = AuthService.getUserToken();
 
         function getUrl() {

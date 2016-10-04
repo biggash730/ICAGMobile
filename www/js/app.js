@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'SimpleRESTIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controllers', 'SimpleRESTIonic.services'])
+angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controllers', 'SimpleRESTIonic.services', 'ionic-letter-avatar', 'ionic.ion.autoListDivider'])
 
 /*   .run(function (, Backand) {
 
@@ -62,6 +62,26 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
                 'tab-members': {
                     templateUrl: 'templates/member.html',
                     controller: 'MemberCtrl as vm'
+                }
+            }
+        })
+
+    .state('tab.firms', {
+            url: '/firms',
+            views: {
+                'tab-firms': {
+                    templateUrl: 'templates/tab-firms.html',
+                    controller: 'FirmsCtrl as vm'
+                }
+            }
+        })
+        .state('tab.firm', {
+            cache: true,
+            url: '/firmdetails/:id',
+            views: {
+                'tab-firms': {
+                    templateUrl: 'templates/firm.html',
+                    controller: 'FirmCtrl as vm'
                 }
             }
         })
@@ -151,7 +171,7 @@ angular.module('SimpleRESTIonic', ['ionic', 'backand', 'SimpleRESTIonic.controll
         Backand.setRunSignupAfterErrorInSigninSocial(true);
     });
 
-    $rootScope.pageSize = 5;
+    $rootScope.pageSize = 20;
 
     function unauthorized() {
         console.log("user is unauthorized, sending to login");
